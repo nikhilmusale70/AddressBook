@@ -7,9 +7,11 @@ public class AddressBook {
         System.out.println("Welcome to address book");
         AddressBookContact abc = new AddressBookContact();
         Scanner sc = new Scanner(System.in);
+        abc.addAnotherContactBook();
         int flag=0;
         while (flag == 0){
-            System.out.println("****MENU**** \n1. Add a contact\n2. Edit a contact \n3. Delete a contact \n4. Print all the contacts\n5. Exit");
+            System.out.println("****MENU**** \n1. Add a contact\n2. Edit a contact \n3. Delete a contact \n4. Print all the contacts" +
+                    "\n5. Add Another AddressBook \n6. Show Number Of AddressBook \n7. Printing different contact books \n8. Exit");
             int choice = sc.nextInt();
             switch (choice){
                 case 1:
@@ -25,7 +27,18 @@ public class AddressBook {
                     abc.printBook();
                     break;
                 case 5:
+                    abc.addAnotherContactBook();
+                    break;
+                case 6:
+                    abc.printTotalNumberOfAddressBook();
+                    break;
+                case 7:
+                    abc.whichAddressBookToPrint();
+                case 8:
                     flag =1;
+                    break;
+                default:
+                    System.out.println("Invalid input");
                     break;
             }
         }

@@ -6,7 +6,9 @@ import java.util.Scanner;
 public class AddressBookContact {
 
     Scanner sc = new Scanner(System.in);
-    ArrayList<AddressBookContact> book = new ArrayList<AddressBookContact>();;
+    ArrayList<AddressBookContact> book;
+    ArrayList<ArrayList<AddressBookContact>> addBooks = new ArrayList<ArrayList<AddressBookContact>>();
+
     String firstName;
     String lastName;
     String address;
@@ -15,6 +17,19 @@ public class AddressBookContact {
     String email;
     String zipCode;
     String phoneNumber;
+
+    public void addAnotherContactBook(){
+        addBooks.add(book = new ArrayList<AddressBookContact>());
+    }
+
+    public void printTotalNumberOfAddressBook(){
+        System.out.println(addBooks.size());
+    }
+
+    public void whichAddressBookToPrint(){
+        int number = sc.nextInt();
+        System.out.println(addBooks.get(number));
+    }
 
     AddressBookContact(){
 
