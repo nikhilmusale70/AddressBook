@@ -86,6 +86,18 @@ public class AddressBookContact {
         return 0;
     }
 
+    public void searchPeopleThroughState(){
+        System.out.println("Enter State's name which you want to search :- ");
+        String nameState = sc.nextLine();
+        for (int i=0; i<addBooks.size();i++){
+            for (int j=0; j<addBooks.get(i).size(); j++){
+                if (addBooks.get(i).get(j).state.equals(nameState)){
+                    printBookThroughBookObject(addBooks.get(i).get(j));
+                }
+            }
+        }
+    }
+
     public void addContact(){
         System.out.println("Enter the details of contact :- ");
         scan();
@@ -138,6 +150,22 @@ public class AddressBookContact {
             System.out.println(book.get(i).email);
             System.out.println();
         }
+    }
+
+    int contact = 1;
+
+    public void printBookThroughBookObject(AddressBookContact addressBookContact){
+        System.out.println("Contact "+(contact++) +"\n");
+        System.out.println(addressBookContact.firstName);
+        System.out.println(addressBookContact.lastName);
+        System.out.println(addressBookContact.address);
+        System.out.println(addressBookContact.city);
+        System.out.println(addressBookContact.state);
+        System.out.println(addressBookContact.zipCode);
+        System.out.println(addressBookContact.phoneNumber);
+        System.out.println(addressBookContact.email);
+        System.out.println();
+
     }
 
 }
