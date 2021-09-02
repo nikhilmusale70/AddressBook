@@ -27,8 +27,20 @@ public class AddressBookContact {
     }
 
     public void whichAddressBookToPrint(){
+        System.out.print("Enter index of address book :- ");
         int number = sc.nextInt();
-        System.out.println(addBooks.get(number));
+        for (int i=0; i<addBooks.get(number).size() ;i++) {
+            System.out.println("Contact " + (i+1) +"\n");
+            System.out.println((addBooks.get(number)).get(i).firstName);
+            System.out.println((addBooks.get(number)).get(i).lastName);
+            System.out.println((addBooks.get(number)).get(i).address);
+            System.out.println((addBooks.get(number)).get(i).state);
+            System.out.println((addBooks.get(number)).get(i).city);
+            System.out.println((addBooks.get(number)).get(i).email);
+            System.out.println((addBooks.get(number)).get(i).zipCode);
+            System.out.println((addBooks.get(number)).get(i).phoneNumber);
+            System.out.println((addBooks.get(number)).get(i).email);
+        }
     }
 
     AddressBookContact(){
