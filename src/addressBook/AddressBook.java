@@ -18,6 +18,9 @@ public class AddressBook {
                 case 2:
                     abc.editContact();
                     break;
+                case 3:
+                    abc.deleteContact();
+                    break;
                 case 4:
                     abc.printBook();
                     break;
