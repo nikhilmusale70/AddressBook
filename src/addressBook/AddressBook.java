@@ -9,11 +9,17 @@ public class AddressBook {
         Scanner sc = new Scanner(System.in);
         int flag=0;
         while (flag == 0){
-            System.out.println("****MENU**** \n1. Add a contact\n5. Exit");
+            System.out.println("****MENU**** \n1. Add a contact\n2. Edit a contact \n3. Delete a contact \n4. Print all the contacts\n5. Exit");
             int choice = sc.nextInt();
             switch (choice){
                 case 1:
                     abc.addContact();
+                    break;
+                case 2:
+                    abc.editContact();
+                    break;
+                case 4:
+                    abc.printBook();
                     break;
                 case 5:
                     flag =1;

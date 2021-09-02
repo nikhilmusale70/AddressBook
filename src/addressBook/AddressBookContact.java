@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBookContact {
-    ArrayList<AddressBookContact> book;
+
+    Scanner sc = new Scanner(System.in);
+    ArrayList<AddressBookContact> book = new ArrayList<AddressBookContact>();;
     String firstName;
     String lastName;
     String address;
@@ -18,47 +20,83 @@ public class AddressBookContact {
 
     }
 
-    AddressBookContact(String firstName, String lastName, String address, String state, String city, String email, String zipc, String phoneNumber){
+    AddressBookContact(String firstName, String lastName, String address, String state, String city, String email, String zipCode, String phoneNumber){
         this.firstName = firstName;
         this.lastName=lastName;
         this.address=address;
-        this.state=state;
         this.city=city;
-        this.email= email ;
+        this.state=state;
         this.zipCode=zipCode;
         this.phoneNumber=phoneNumber;
+        this.email= email ;
+    }
+
+    public void scan(){
+        System.out.print("Enter your first name :- ");
+        firstName = sc.nextLine();
+        System.out.print("Enter your last name :- ");
+        lastName = sc.nextLine();
+        System.out.print("Enter your address :- ");
+        address = sc.nextLine();
+        System.out.print("Enter your city :- ");
+        city = sc.nextLine();
+        System.out.print("Enter your state:- ");
+        state = sc.nextLine();
+        System.out.print("Enter your zip code :- ");
+        zipCode = sc.nextLine();
+        System.out.print("Enter your phone number :- ");
+        phoneNumber = sc.nextLine();
+        System.out.print("Enter your email :- ");
+        email = sc.nextLine();
     }
 
     public void addContact(){
-        Scanner sc =new Scanner(System.in);
         System.out.println("Enter the details of contact :- ");
-        book = new ArrayList<AddressBookContact>();
         scan();
         AddressBookContact ab = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
         book.add(ab);
     }
 
-    public void scan(){
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter your first name :- ");
-        firstName = sc.nextLine();
-        System.out.println("Enter your last name :- ");
-        lastName = sc.nextLine();
-        System.out.println("Enter your address :- ");
-        address = sc.nextLine();
-        System.out.println("Enter your city :- ");
-        city = sc.nextLine();
-        System.out.println("Enter your state:- ");
-        state = sc.nextLine();
-        System.out.println("Enter your zip code :- ");
-        zipCode = sc.nextLine();
-        System.out.println("Enter your phone number :- ");
-        phoneNumber = sc.nextLine();
-        System.out.println("Enter your email :- ");
-        email = sc.nextLine();
+    public void editContact(){
+        System.out.print("Enter name of person whose you want to edit :- ");
+        String name = sc.nextLine();
+        int i;
+        for (i=0 ; i<book.size(); i++){
+            if (book.get(i).firstName.equals(name)){
+                scan();
+                break;
+            }
+        }
+        AddressBookContact abc = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
+        book.set(i,abc);
     }
 
+    public void deleteContact(){
+        System.out.print("Enter name of person whose you want to delete :- ");
+        String name = sc.nextLine();
+        int i;
+        for (i=0 ; i<book.size(); i++){
+            if (book.get(i).firstName.equals(name)){
+                book.remove(i);
+                break;
+            }
+        }
+
+    }
+
+    public void printBook(){
+        for (int i=0; i<book.size(); i++){
+            System.out.println("Contact "+(i+1) +"\n");
+            System.out.println(book.get(i).firstName);
+            System.out.println(book.get(i).lastName);
+            System.out.println(book.get(i).address);
+            System.out.println(book.get(i).city);
+            System.out.println(book.get(i).state);
+            System.out.println(book.get(i).zipCode);
+            System.out.println(book.get(i).phoneNumber);
+            System.out.println(book.get(i).email);
+            System.out.println();
+        }
+    }
 
 }
