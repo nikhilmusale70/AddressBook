@@ -98,6 +98,19 @@ public class AddressBookContact {
         }
     }
 
+    public void countPeopleThroughState() {
+        int count = 0;
+        System.out.println("Enter State's name which you want to search :- ");
+        String nameState = sc.nextLine();
+        for (int i = 0; i < addBooks.size(); i++) {
+            for (int j = 0; j < addBooks.get(i).size(); j++) {
+                if (addBooks.get(i).get(j).state.equals(nameState))
+                    count++;
+            }
+        }
+        System.out.println("Number of people living in this state is :- " + count);
+    }
+
     public void addContact(){
         System.out.println("Enter the details of contact :- ");
         scan();
