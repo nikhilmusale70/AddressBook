@@ -77,11 +77,25 @@ public class AddressBookContact {
         email = sc.nextLine();
     }
 
+    public int duplicate(){
+        for (int i=0; i<book.size(); i++) {
+            if (firstName.equals(book.get(i).firstName)){
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     public void addContact(){
         System.out.println("Enter the details of contact :- ");
         scan();
-        AddressBookContact ab = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
-        book.add(ab);
+        if (duplicate()==1) {
+            System.out.println("Sorry the contact already exists, thus the contact cannot be added");
+        }
+        else {
+            AddressBookContact ab = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
+            book.add(ab);
+        }
     }
 
     public void editContact(){
