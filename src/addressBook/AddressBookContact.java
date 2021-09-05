@@ -172,11 +172,10 @@ public class AddressBookContact {
         }
     }
 
-<<<<<<< HEAD
     int contact = 1;
 
-    public void printBookThroughBookObject(AddressBookContact addressBookContact){
-        System.out.println("Contact "+(contact++) +"\n");
+    public void printBookThroughBookObject(AddressBookContact addressBookContact) {
+        System.out.println("Contact " + (contact++) + "\n");
         System.out.println(addressBookContact.firstName);
         System.out.println(addressBookContact.lastName);
         System.out.println(addressBookContact.address);
@@ -186,8 +185,7 @@ public class AddressBookContact {
         System.out.println(addressBookContact.phoneNumber);
         System.out.println(addressBookContact.email);
         System.out.println();
-
-=======
+    }
     public void searchPeopleWithState(){
         System.out.print("Enter firstName of the person :- ");
         String fname = sc.nextLine();
@@ -213,7 +211,7 @@ public class AddressBookContact {
         System.out.println(tpBOOK.email);
         System.out.println();
         cal++;
->>>>>>> uc8_refactored
+
     }
 
 }
