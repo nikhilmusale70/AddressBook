@@ -12,7 +12,7 @@ public class AddressBook {
         while (flag == 0){
             System.out.println("****MENU**** \n1. Add a contact\n2. Edit a contact \n3. Delete a contact \n4. Print all the contacts" +
                     "\n5. Add Another AddressBook \n6. Show Number Of AddressBook \n7. Printing different contact books " +
-                    "\n8. Exit \n9. Search people by name and state \n10 People view in state");
+                    "\n8. Exit \n9. Search people by name and state \n10 People view in state \n11. Count people in a state");
             int choice = sc.nextInt();
             switch (choice){
                 case 1:
@@ -43,6 +43,9 @@ public class AddressBook {
                     break;
                 case 10:
                     abc.peopleViewWithTheState();
+                    break;
+                case 11:
+                    abc.countOfPeopleInState();
                     break;
                 default:
                     System.out.println("Invalid input");

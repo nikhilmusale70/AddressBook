@@ -174,4 +174,11 @@ public class AddressBookContact {
         for (int i=0; i<peopleViewWithStateList.size(); i++)
             printingWithObjectOfBook(peopleViewWithStateList.get(i));
     }
+
+    public void countOfPeopleInState(){
+        System.out.print("Enter State to count people in it :- ");
+        String stateName = sc.nextLine();
+        System.out.print("Total number of people in the state is :- ");
+        System.out.println(book.stream().filter(book -> stateName.equals(book.city)).count());
+    }
 }
