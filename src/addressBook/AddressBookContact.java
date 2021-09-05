@@ -81,12 +81,15 @@ public class AddressBookContact {
     }
 
     public void addContact(){
-        scan();
-        Optional<AddressBookContact> book1 = book.stream().filter(book -> book.firstName.equals(firstName)).findFirst();
+        System.out.print("Enter first name ,checking if its duplicate or not :- ");
+        String fName = sc.nextLine();
+        Optional<AddressBookContact> book1 = book.stream().filter(book -> book.firstName.equals(fName)).findFirst();
         if(book1.isPresent()){
             System.out.println("Book is present");
         }
         else {
+            System.out.println("Not an duplicate");
+            scan();
             AddressBookContact ab = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
             book.add(ab);
             System.out.println("Book added succesfully");
@@ -123,14 +126,14 @@ public class AddressBookContact {
     public void printBook(){
         for (int i=0; i<book.size(); i++){
             System.out.println("Contact "+(i+1) +"\n");
-            System.out.println(book.get(i).firstName);
-            System.out.println(book.get(i).lastName);
-            System.out.println(book.get(i).address);
-            System.out.println(book.get(i).city);
-            System.out.println(book.get(i).state);
-            System.out.println(book.get(i).zipCode);
-            System.out.println(book.get(i).phoneNumber);
-            System.out.println(book.get(i).email);
+            System.out.println("fname "+book.get(i).firstName);
+            System.out.println("lname "+book.get(i).lastName);
+            System.out.println("add "+book.get(i).address);
+            System.out.println("city "+book.get(i).city);
+            System.out.println("state "+book.get(i).state);
+            System.out.println("zipcode "+book.get(i).zipCode);
+            System.out.println("phonenum "+book.get(i).phoneNumber);
+            System.out.println("EMAIL "+book.get(i).email);
             System.out.println();
         }
     }
@@ -162,4 +165,13 @@ public class AddressBookContact {
         cal++;
     }
 
+    public void peopleViewWithTheState(){
+        System.out.print("Enter State to view people in it :- ");
+        String stateName = sc.nextLine();
+
+        List<AddressBookContact> peopleViewWithStateList = book.stream().filter(book -> stateName.equals(book.city)).collect(Collectors.toList());
+        System.out.println(peopleViewWithStateList.size());
+        for (int i=0; i<peopleViewWithStateList.size(); i++)
+            printingWithObjectOfBook(peopleViewWithStateList.get(i));
+    }
 }
