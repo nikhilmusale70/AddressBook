@@ -1,7 +1,10 @@
 package addressBook;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBookContact {
 
@@ -77,24 +80,16 @@ public class AddressBookContact {
         email = sc.nextLine();
     }
 
-    public int duplicate(){
-        for (int i=0; i<book.size(); i++) {
-            if (firstName.equals(book.get(i).firstName)){
-                return 1;
-            }
-        }
-        return 0;
-    }
-
     public void addContact(){
-        System.out.println("Enter the details of contact :- ");
         scan();
-        if (duplicate()==1) {
-            System.out.println("Sorry the contact already exists, thus the contact cannot be added");
+        Optional<AddressBookContact> book1 = book.stream().filter(book -> book.firstName.equals(firstName)).findFirst();
+        if(book1.isPresent()){
+            System.out.println("Book is present");
         }
         else {
             AddressBookContact ab = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
             book.add(ab);
+            System.out.println("Book added succesfully");
         }
     }
 
@@ -138,6 +133,33 @@ public class AddressBookContact {
             System.out.println(book.get(i).email);
             System.out.println();
         }
+    }
+
+    public void searchPeopleWithState(){
+        System.out.print("Enter firstName of the person :- ");
+        String fname = sc.nextLine();
+
+        System.out.print("Enter State of the person :- ");
+        String stateName = sc.nextLine();
+
+        List<AddressBookContact> searchPeopleWithStateList = book.stream().filter(book -> (book.firstName.equals(fname)&& book.state.equals(stateName))).collect(Collectors.toList());
+        for (int i=0; i<searchPeopleWithStateList.size(); i++)
+            printingWithObjectOfBook(searchPeopleWithStateList.get(i));
+    }
+
+    int cal=1;
+    public void printingWithObjectOfBook(AddressBookContact tpBOOK){
+        System.out.println("contact no. " + cal);
+        System.out.println(tpBOOK.firstName);
+        System.out.println(tpBOOK.lastName);
+        System.out.println(tpBOOK.address);
+        System.out.println(tpBOOK.city);
+        System.out.println(tpBOOK.state);
+        System.out.println(tpBOOK.zipCode);
+        System.out.println(tpBOOK.phoneNumber);
+        System.out.println(tpBOOK.email);
+        System.out.println();
+        cal++;
     }
 
 }
