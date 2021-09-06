@@ -11,13 +11,8 @@ public class AddressBook {
         int flag=0;
         while (flag == 0){
             System.out.println("****MENU**** \n1. Add a contact\n2. Edit a contact \n3. Delete a contact \n4. Print all the contacts" +
-<<<<<<< HEAD
                     "\n5. Add Another AddressBook \n6. Show Number Of AddressBook \n7. Printing different contact books \n8. Exit" +
-                    "\n9. Search through state \n10. Count of contact in a state");
-=======
-                    "\n5. Add Another AddressBook \n6. Show Number Of AddressBook \n7. Printing different contact books " +
-                    "\n8. Exit \n9. Search people by name and state");
->>>>>>> uc8_refactored
+                    "\n9. Search through state \n10. Count of contact in a state \n11. Count people in a state \n12. Sort book");
             int choice = sc.nextInt();
             switch (choice){
                 case 1:
@@ -44,14 +39,16 @@ public class AddressBook {
                     flag =1;
                     break;
                 case 9:
-<<<<<<< HEAD
                     abc.searchPeopleThroughState();
                     break;
                 case 10:
                     abc.countPeopleThroughState();
-=======
-                    abc.searchPeopleWithState();
->>>>>>> uc8_refactored
+                    break;
+                case 11:
+                    abc.countOfPeopleInState();
+                    break;
+                case 12:
+                    abc.sortedBookAlphabetically();
                     break;
                 default:
                     System.out.println("Invalid input");

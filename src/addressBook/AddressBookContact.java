@@ -1,9 +1,6 @@
 package addressBook;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBookContact {
@@ -80,7 +77,6 @@ public class AddressBookContact {
         email = sc.nextLine();
     }
 
-<<<<<<< HEAD
     public int duplicate(){
         for (int i=0; i<book.size(); i++) {
             if (firstName.equals(book.get(i).firstName)){
@@ -115,15 +111,16 @@ public class AddressBookContact {
         System.out.println("Number of people living in this state is :- " + count);
     }
 
-=======
->>>>>>> uc8_refactored
     public void addContact(){
-        scan();
-        Optional<AddressBookContact> book1 = book.stream().filter(book -> book.firstName.equals(firstName)).findFirst();
+        System.out.print("Enter first name ,checking if its duplicate or not :- ");
+        String fName = sc.nextLine();
+        Optional<AddressBookContact> book1 = book.stream().filter(book -> book.firstName.equals(fName)).findFirst();
         if(book1.isPresent()){
             System.out.println("Book is present");
         }
         else {
+            System.out.println("Not an duplicate");
+            scan();
             AddressBookContact ab = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
             book.add(ab);
             System.out.println("Book added succesfully");
@@ -160,14 +157,14 @@ public class AddressBookContact {
     public void printBook(){
         for (int i=0; i<book.size(); i++){
             System.out.println("Contact "+(i+1) +"\n");
-            System.out.println(book.get(i).firstName);
-            System.out.println(book.get(i).lastName);
-            System.out.println(book.get(i).address);
-            System.out.println(book.get(i).city);
-            System.out.println(book.get(i).state);
-            System.out.println(book.get(i).zipCode);
-            System.out.println(book.get(i).phoneNumber);
-            System.out.println(book.get(i).email);
+            System.out.println("fname "+book.get(i).firstName);
+            System.out.println("lname "+book.get(i).lastName);
+            System.out.println("add "+book.get(i).address);
+            System.out.println("city "+book.get(i).city);
+            System.out.println("state "+book.get(i).state);
+            System.out.println("zipcode "+book.get(i).zipCode);
+            System.out.println("phonenum "+book.get(i).phoneNumber);
+            System.out.println("EMAIL "+book.get(i).email);
             System.out.println();
         }
     }
@@ -214,4 +211,48 @@ public class AddressBookContact {
 
     }
 
+    public void peopleViewWithTheState(){
+        System.out.print("Enter State to view people in it :- ");
+        String stateName = sc.nextLine();
+
+        List<AddressBookContact> peopleViewWithStateList = book.stream().filter(book -> stateName.equals(book.city)).collect(Collectors.toList());
+        System.out.println(peopleViewWithStateList.size());
+        for (int i=0; i<peopleViewWithStateList.size(); i++)
+            printingWithObjectOfBook(peopleViewWithStateList.get(i));
+    }
+
+    public void countOfPeopleInState(){
+        System.out.print("Enter State to count people in it :- ");
+        String stateName = sc.nextLine();
+        System.out.print("Total number of people in the state is :- ");
+        System.out.println(book.stream().filter(book -> stateName.equals(book.city)).count());
+    }
+
+    public void sortedBookAlphabetically(){
+        AddressBookContact[] sortedList = new AddressBookContact[book.size()];
+        for (int j=0; j< book.size() - 1  ; j++) {
+            for (int i = 0; i < book.size() - 1; i++) {
+                AddressBookContact temp = null;
+                int compare = (book.get(i).firstName).compareTo((book.get(i + 1).firstName));
+                if (compare <= 0) {
+                    sortedList[i] = book.get(i);
+                } else if (compare > 0) {
+                    sortedList[i] = book.get(i + 1);
+                    sortedList[i + 1] = book.get(i);
+                    i++;
+                    if (book.get(i+1) != null){
+                        sortedList[i+1]=book.get(i+1);
+                    }
+                }
+
+            }
+        }
+        List<AddressBookContact> sort = Arrays.asList(sortedList);
+
+        System.out.println("Now printing book with sort" +sort.size());
+        for (AddressBookContact bk: sort ) {
+            printingWithObjectOfBook(bk);
+        }
+
+    }
 }
