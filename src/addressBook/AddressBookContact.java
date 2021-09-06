@@ -255,4 +255,98 @@ public class AddressBookContact {
         }
 
     }
+
+    public void sortEntryThroughCityStateZip(){
+        System.out.println("You want to sort with? \n1. City\n2. State\n3. ZipCode");
+        int ch = sc.nextInt();
+        switch (ch){
+            case 1:
+                sortyByCity();
+                break;
+            case 2:
+                sortyByState();
+                break;
+            case 3:
+                sortyByZipCode();
+                break;
+        }
+    }
+
+    public void sortyByCity(){
+        AddressBookContact[] sortedCityList = new AddressBookContact[book.size()];
+        for (int j=0; j< book.size() - 1  ; j++) {
+            for (int i = 0; i < book.size() - 1; i++) {
+                int compare = (book.get(i).city).compareTo((book.get(i + 1).city));
+                if (compare <= 0) {
+                    sortedCityList[i] = book.get(i);
+                } else if (compare > 0) {
+                    sortedCityList[i] = book.get(i + 1);
+                    sortedCityList[i + 1] = book.get(i);
+                    i++;
+                    if (book.get(i+1) != null){
+                        sortedCityList[i+1]=book.get(i+1);
+                    }
+                }
+
+            }
+        }
+        List<AddressBookContact> sortCity = Arrays.asList(sortedCityList);
+
+        System.out.println("Now printing book with sort City " +sortCity.size());
+        for (AddressBookContact bk: sortCity ) {
+            printingWithObjectOfBook(bk);
+        }
+    }
+
+    public void sortyByState(){
+        AddressBookContact[] sortedStateList = new AddressBookContact[book.size()];
+        for (int j=0; j< book.size() - 1  ; j++) {
+            for (int i = 0; i < book.size() - 1; i++) {
+                int compare = (book.get(i).state).compareTo((book.get(i + 1).state));
+                if (compare <= 0) {
+                    sortedStateList[i] = book.get(i);
+                } else if (compare > 0) {
+                    sortedStateList[i] = book.get(i + 1);
+                    sortedStateList[i + 1] = book.get(i);
+                    i++;
+                    if (book.get(i+1) != null){
+                        sortedStateList[i+1]=book.get(i+1);
+                    }
+                }
+
+            }
+        }
+        List<AddressBookContact> sortState = Arrays.asList(sortedStateList);
+
+        System.out.println("Now printing book with sort City " +sortState.size());
+        for (AddressBookContact bk: sortState ) {
+            printingWithObjectOfBook(bk);
+        }
+    }
+
+    public void sortyByZipCode(){
+        AddressBookContact[] sortedZipList = new AddressBookContact[book.size()];
+        for (int j=0; j< book.size() - 1  ; j++) {
+            for (int i = 0; i < book.size() - 1; i++) {
+                int compare = (book.get(i).zipCode).compareTo((book.get(i + 1).zipCode));
+                if (compare <= 0) {
+                    sortedZipList[i] = book.get(i);
+                } else if (compare > 0) {
+                    sortedZipList[i] = book.get(i + 1);
+                    sortedZipList[i + 1] = book.get(i);
+                    i++;
+                    if (book.get(i+1) != null){
+                        sortedZipList[i+1]=book.get(i+1);
+                    }
+                }
+
+            }
+        }
+        List<AddressBookContact> sortZip = Arrays.asList(sortedZipList);
+
+        System.out.println("Now printing book with sort City " +sortZip.size());
+        for (AddressBookContact bk: sortZip ) {
+            printingWithObjectOfBook(bk);
+        }
+    }
 }
