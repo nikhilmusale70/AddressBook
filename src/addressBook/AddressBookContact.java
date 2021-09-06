@@ -1,9 +1,6 @@
 package addressBook;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBookContact {
@@ -180,5 +177,33 @@ public class AddressBookContact {
         String stateName = sc.nextLine();
         System.out.print("Total number of people in the state is :- ");
         System.out.println(book.stream().filter(book -> stateName.equals(book.city)).count());
+    }
+
+    public void sortedBookAlphabetically(){
+        AddressBookContact[] sortedList = new AddressBookContact[book.size()];
+        for (int j=0; j< book.size() - 1  ; j++) {
+            for (int i = 0; i < book.size() - 1; i++) {
+                AddressBookContact temp = null;
+                int compare = (book.get(i).firstName).compareTo((book.get(i + 1).firstName));
+                if (compare <= 0) {
+                    sortedList[i] = book.get(i);
+                } else if (compare > 0) {
+                    sortedList[i] = book.get(i + 1);
+                    sortedList[i + 1] = book.get(i);
+                    i++;
+                    if (book.get(i+1) != null){
+                        sortedList[i+1]=book.get(i+1);
+                    }
+                }
+
+            }
+        }
+        List<AddressBookContact> sort = Arrays.asList(sortedList);
+
+        System.out.println("Now printing book with sort" +sort.size());
+        for (AddressBookContact bk: sort ) {
+            printingWithObjectOfBook(bk);
+        }
+
     }
 }
