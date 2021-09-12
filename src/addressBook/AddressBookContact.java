@@ -1,5 +1,10 @@
 package addressBook;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -349,4 +354,26 @@ public class AddressBookContact {
             printingWithObjectOfBook(bk);
         }
     }
+
+    public void printInFile() throws IOException {
+        Path path = Paths.get("C:\\Nikhil\\bridgelabz\\Address_Book\\TextFile\\AddressBook.txt");
+        if (Files.exists(path)){
+            System.out.println("Files exists so writing on the file");
+        }
+        else{
+            System.out.println("File does not exist so creatin a file");
+            Files.createFile(path);
+        }
+
+        ArrayList<String> data = new ArrayList<>();
+        data.add("First_Name Last_Name Address City State ZIpCode PhoneNumber Email");
+        for (int i=0; i< book.size(); i++){
+            data.add(book.get(i).firstName + "\t\t" + book.get(i).lastName + "\t" + book.get(i).address+ "\t" +
+                    book.get(i).city+ "\t" + book.get(i).state+ "\t" + book.get(i).zipCode+
+                    "\t" + book.get(i).phoneNumber+ "\t" + book.get(i).email);
+        }
+        Files.write(path,data);
+        System.out.println("Data written on file Succesfully");
+    }
+
 }
