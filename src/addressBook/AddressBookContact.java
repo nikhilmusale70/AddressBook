@@ -1,12 +1,17 @@
 package addressBook;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class AddressBookContact {
 
@@ -388,5 +393,40 @@ public class AddressBookContact {
         }
     }
 
+<<<<<<< HEAD
     
+=======
+    public void writeDataWithCSV() throws IOException {
+            Path path = Paths.get("C:\\Nikhil\\bridgelabz\\Address_Book\\TextFile\\AddressBook_UsingCSV.csv");
+        CSVWriter csvWriter = new CSVWriter(new FileWriter("C:\\Nikhil\\bridgelabz\\Address_Book\\TextFile\\AddressBook_UsingCSV.csv"));
+        if (Files.exists(path)){
+            System.out.println("File already Exists, so appending on it ");
+        }
+        else {
+            System.out.println("File does not exists, So creating new file ");
+            Files.createFile(path);
+        }
+
+        ArrayList<String[]> data = new ArrayList<>();
+        data.add(new String[] {"FirstName","LastName" ,"Address" ,"City","State","ZipCode","PhoneNumber","EmailID"});
+        for (int i = 0; i < book.size(); i++) {
+            data.add( new String[] {book.get(i).firstName , book.get(i).lastName , book.get(i).address ,
+                    book.get(i).city, book.get(i).state , book.get(i).zipCode , book.get(i).phoneNumber , book.get(i).email});
+        }
+        csvWriter.writeAll(data);
+        csvWriter.close();
+
+    }
+
+    public void readFromCSVFile() throws CsvValidationException, IOException {
+        Path path = Paths.get("C:\\Nikhil\\bridgelabz\\Address_Book\\TextFile\\AddressBook_UsingCSV.csv");
+        File file = new File("C:\\Nikhil\\bridgelabz\\Address_Book\\TextFile\\AddressBook_UsingCSV.csv");
+        Scanner inputStream = new Scanner(file);
+        while (inputStream.hasNext()){
+            String data = inputStream.next();
+            System.out.println(data);
+        }
+        inputStream.close();
+    }
+>>>>>>> uc14
 }
