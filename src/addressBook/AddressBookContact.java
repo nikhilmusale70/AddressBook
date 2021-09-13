@@ -1,35 +1,38 @@
 package addressBook;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.github.lbovolini.mapper.ObjectMapper;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
+import com.google.gson.*;
 
 public class AddressBookContact {
 
     Scanner sc = new Scanner(System.in);
-    ArrayList<AddressBookContact> book;
-    ArrayList<ArrayList<AddressBookContact>> addBooks = new ArrayList<ArrayList<AddressBookContact>>();
+    ArrayList<AdressBookData> book;
+    ArrayList<ArrayList<AdressBookData>> addBooks = new ArrayList<ArrayList<AdressBookData>>();
+    AdressBookData abd = new AdressBookData();
+    String mfirstName;
+    String mlastName;
+    String maddress;
+    String mstate;
+    String mcity;
+    String memail;
+    String mzipCode;
+    String mphoneNumber;
 
-    String firstName;
-    String lastName;
-    String address;
-    String state;
-    String city;
-    String email;
-    String zipCode;
-    String phoneNumber;
 
     public void addAnotherContactBook() {
-        addBooks.add(book = new ArrayList<AddressBookContact>());
+        addBooks.add(book = new ArrayList<AdressBookData>());
     }
 
     public void printTotalNumberOfAddressBook() {
@@ -53,43 +56,30 @@ public class AddressBookContact {
         }
     }
 
-    AddressBookContact() {
 
-    }
-
-    AddressBookContact(String firstName, String lastName, String address, String state, String city, String email, String zipCode, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
 
     public void scan() {
         System.out.print("Enter your first name :- ");
-        firstName = sc.nextLine();
+        mfirstName = sc.nextLine();
         System.out.print("Enter your last name :- ");
-        lastName = sc.nextLine();
+        mlastName = sc.nextLine();
         System.out.print("Enter your address :- ");
-        address = sc.nextLine();
+        maddress = sc.nextLine();
         System.out.print("Enter your city :- ");
-        city = sc.nextLine();
+        mcity = sc.nextLine();
         System.out.print("Enter your state:- ");
-        state = sc.nextLine();
+        mstate = sc.nextLine();
         System.out.print("Enter your zip code :- ");
-        zipCode = sc.nextLine();
+        mzipCode = sc.nextLine();
         System.out.print("Enter your phone number :- ");
-        phoneNumber = sc.nextLine();
+        mphoneNumber = sc.nextLine();
         System.out.print("Enter your email :- ");
-        email = sc.nextLine();
+        memail = sc.nextLine();
     }
 
     public int duplicate() {
         for (int i = 0; i < book.size(); i++) {
-            if (firstName.equals(book.get(i).firstName)) {
+            if (mfirstName.equals(book.get(i).firstName)) {
                 return 1;
             }
         }
@@ -124,13 +114,13 @@ public class AddressBookContact {
     public void addContact() {
         System.out.print("Enter first name ,checking if its duplicate or not :- ");
         String fName = sc.nextLine();
-        Optional<AddressBookContact> book1 = book.stream().filter(book -> book.firstName.equals(fName)).findFirst();
+        Optional<AdressBookData> book1 = book.stream().filter(book -> book.firstName.equals(fName)).findFirst();
         if (book1.isPresent()) {
             System.out.println("Book is present");
         } else {
             System.out.println("Not an duplicate");
             scan();
-            AddressBookContact ab = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
+            AdressBookData ab = new AdressBookData(mfirstName, mlastName, maddress, mcity, mstate, mzipCode, mphoneNumber, memail);
             book.add(ab);
             System.out.println("Book added succesfully");
         }
@@ -146,7 +136,7 @@ public class AddressBookContact {
                 break;
             }
         }
-        AddressBookContact abc = new AddressBookContact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
+        AdressBookData abc = new AdressBookData(mfirstName, mlastName, maddress, mcity, mstate, mzipCode, mphoneNumber, memail);
         book.set(i, abc);
     }
 
@@ -180,7 +170,7 @@ public class AddressBookContact {
 
     int contact = 1;
 
-    public void printBookThroughBookObject(AddressBookContact addressBookContact) {
+    public void printBookThroughBookObject(AdressBookData addressBookContact) {
         System.out.println("Contact " + (contact++) + "\n");
         System.out.println(addressBookContact.firstName);
         System.out.println(addressBookContact.lastName);
@@ -200,14 +190,14 @@ public class AddressBookContact {
         System.out.print("Enter State of the person :- ");
         String stateName = sc.nextLine();
 
-        List<AddressBookContact> searchPeopleWithStateList = book.stream().filter(book -> (book.firstName.equals(fname) && book.state.equals(stateName))).collect(Collectors.toList());
+        List<AdressBookData> searchPeopleWithStateList = book.stream().filter(book -> (book.firstName.equals(fname) && book.state.equals(stateName))).collect(Collectors.toList());
         for (int i = 0; i < searchPeopleWithStateList.size(); i++)
             printingWithObjectOfBook(searchPeopleWithStateList.get(i));
     }
 
     int cal = 1;
 
-    public void printingWithObjectOfBook(AddressBookContact tpBOOK) {
+    public void printingWithObjectOfBook(AdressBookData tpBOOK) {
         System.out.println("contact no. " + cal);
         System.out.println(tpBOOK.firstName);
         System.out.println(tpBOOK.lastName);
@@ -226,7 +216,7 @@ public class AddressBookContact {
         System.out.print("Enter State to view people in it :- ");
         String stateName = sc.nextLine();
 
-        List<AddressBookContact> peopleViewWithStateList = book.stream().filter(book -> stateName.equals(book.city)).collect(Collectors.toList());
+        List<AdressBookData> peopleViewWithStateList = book.stream().filter(book -> stateName.equals(book.city)).collect(Collectors.toList());
         System.out.println(peopleViewWithStateList.size());
         for (int i = 0; i < peopleViewWithStateList.size(); i++)
             printingWithObjectOfBook(peopleViewWithStateList.get(i));
@@ -240,7 +230,7 @@ public class AddressBookContact {
     }
 
     public void sortedBookAlphabetically() {
-        AddressBookContact[] sortedList = new AddressBookContact[book.size()];
+        AdressBookData[] sortedList = new AdressBookData[book.size()];
         for (int j = 0; j < book.size() - 1; j++) {
             for (int i = 0; i < book.size() - 1; i++) {
                 AddressBookContact temp = null;
@@ -258,10 +248,10 @@ public class AddressBookContact {
 
             }
         }
-        List<AddressBookContact> sort = Arrays.asList(sortedList);
+        List<AdressBookData> sort = Arrays.asList(sortedList);
 
         System.out.println("Now printing book with sort" + sort.size());
-        for (AddressBookContact bk : sort) {
+        for (AdressBookData bk : sort) {
             printingWithObjectOfBook(bk);
         }
 
@@ -284,7 +274,7 @@ public class AddressBookContact {
     }
 
     public void sortyByCity() {
-        AddressBookContact[] sortedCityList = new AddressBookContact[book.size()];
+        AdressBookData[] sortedCityList = new AdressBookData[book.size()];
         for (int j = 0; j < book.size() - 1; j++) {
             for (int i = 0; i < book.size() - 1; i++) {
                 int compare = (book.get(i).city).compareTo((book.get(i + 1).city));
@@ -301,16 +291,16 @@ public class AddressBookContact {
 
             }
         }
-        List<AddressBookContact> sortCity = Arrays.asList(sortedCityList);
+        List<AdressBookData> sortCity = Arrays.asList(sortedCityList);
 
         System.out.println("Now printing book with sort City " + sortCity.size());
-        for (AddressBookContact bk : sortCity) {
+        for (AdressBookData bk : sortCity) {
             printingWithObjectOfBook(bk);
         }
     }
 
     public void sortyByState() {
-        AddressBookContact[] sortedStateList = new AddressBookContact[book.size()];
+        AdressBookData[] sortedStateList = new AdressBookData[book.size()];
         for (int j = 0; j < book.size() - 1; j++) {
             for (int i = 0; i < book.size() - 1; i++) {
                 int compare = (book.get(i).state).compareTo((book.get(i + 1).state));
@@ -327,16 +317,16 @@ public class AddressBookContact {
 
             }
         }
-        List<AddressBookContact> sortState = Arrays.asList(sortedStateList);
+        List<AdressBookData> sortState = Arrays.asList(sortedStateList);
 
         System.out.println("Now printing book with sort City " + sortState.size());
-        for (AddressBookContact bk : sortState) {
+        for (AdressBookData bk : sortState) {
             printingWithObjectOfBook(bk);
         }
     }
 
     public void sortyByZipCode() {
-        AddressBookContact[] sortedZipList = new AddressBookContact[book.size()];
+        AdressBookData[] sortedZipList = new AdressBookData[book.size()];
         for (int j = 0; j < book.size() - 1; j++) {
             for (int i = 0; i < book.size() - 1; i++) {
                 int compare = (book.get(i).zipCode).compareTo((book.get(i + 1).zipCode));
@@ -353,10 +343,10 @@ public class AddressBookContact {
 
             }
         }
-        List<AddressBookContact> sortZip = Arrays.asList(sortedZipList);
+        List<AdressBookData> sortZip = Arrays.asList(sortedZipList);
 
         System.out.println("Now printing book with sort City " + sortZip.size());
-        for (AddressBookContact bk : sortZip) {
+        for (AdressBookData bk : sortZip) {
             printingWithObjectOfBook(bk);
         }
     }
@@ -426,5 +416,40 @@ public class AddressBookContact {
         }
         inputStream.close();
     }
-    
+
+    public void writingInJSONFile() throws IOException {
+        Path path = Paths.get("C:\\Nikhil\\bridgelabz\\Address_Book\\TextFile\\AddressBook_UsingJSON.json");
+        Gson gson = new Gson();
+        ArrayList<String > tp = new ArrayList<>();
+
+        if (Files.exists(path))
+            System.out.println("File exists already and will append");
+        else {
+            System.out.println("Files does not exists");
+            Files.createFile(path);
+        }
+
+        for (int i=0; i<book.size(); i++){
+            tp.add(gson.toJson(book.get(i)));
+        }
+        System.out.println(tp);
+        FileWriter fw = new FileWriter(String.valueOf(path));
+
+        for (String str : tp)
+            fw.write(str + "\n");
+        fw.close();
+
+        System.out.println("Written on file Successfully");
+    }
+
+    public void readingFromJSONFile() throws IOException {
+        Path path = Paths.get("C:\\Nikhil\\bridgelabz\\Address_Book\\TextFile\\AddressBook_UsingJSON.json");
+        if (!Files.exists(path))
+            System.out.println("File does not exists");
+        else {
+            System.out.println(Files.readAllLines(path));
+        }
+    }
+
+
 }
