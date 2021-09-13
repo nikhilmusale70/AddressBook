@@ -17,7 +17,7 @@ public class AddressBook {
                     "\n5. Add Another AddressBook \n6. Show Number Of AddressBook \n7. Printing different contact books \n8. Exit" +
                     "\n9. Search through state \n10. Count of contact in a state \n11. Count people in a state " +
                     "\n12. Sort book \n13. Sort Entry through city" + "\n14. Printing in a file" + "\n15. Reading from file"
-            +"\n16. Write in csv file" +"\n17. Read a csv file");
+            +"\n16. Write in csv file" +"\n17. Read a csv file" +"\n18. Write in json"+"\n19. Read in json");
             int choice = sc.nextInt();
             switch (choice){
                 case 1:
@@ -68,6 +68,12 @@ public class AddressBook {
                     break;
                 case 17:
                     abc.readFromCSVFile();
+                    break;
+                case 18:
+                    abc.writingInJSONFile();
+                    break;
+                case 19:
+                    abc.readingFromJSONFile();
                     break;
                 default:
                     System.out.println("Invalid input");
